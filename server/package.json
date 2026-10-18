@@ -30,6 +30,7 @@
     "#models/*": "./src/models/*.js",
     "#controllers/*": "./src/controllers/*.js",
     "#routes/*": "./src/routes/*.js",
-    "#middlewares/*": "./src/middleware/*.js"
+    "#middlewares/*": "./src/middleware/*.js",
+    "#validations/*": "./src/validations/*.js"
   }
 }
