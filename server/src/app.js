@@ -1,6 +1,6 @@
 import express from "express";
-import cors from "cors"; 
-import "dotenv/config"
+import cors from "cors";
+import "dotenv/config";
 
 const app = express();
 
@@ -12,9 +12,15 @@ app.use(
 );
 
 app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({extended:true, limit:'10mb'}));
-
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // app.use('/auth', )
+
+app.use((error, request, response, next) => {
+  console.log(error.message);
+  response
+    .status(500)
+    .json({ success: false, message: "Internal Server Error" });
+});
 
 export default app;
