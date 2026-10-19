@@ -6,7 +6,7 @@ export const protectedRoute = async (request, response, next) => {
     const token = request.cookies.JWT_TOKEN;
 
     if (!token) {
-      return response.status(401).message({
+      return response.status(401).json({
         success: false,
         message: "Un-authorized - no token provided",
       });
@@ -17,7 +17,7 @@ export const protectedRoute = async (request, response, next) => {
     if (!verifiedToken) {
       return response
         .status(401)
-        .message({ success: false, message: "Un-authorized - invalid token" });
+        .json({ success: false, message: "Un-authorized - invalid token" });
     }
 
     const verifiedUser = await User.findById(verifiedToken.userId).select(
