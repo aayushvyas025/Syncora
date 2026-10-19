@@ -44,3 +44,24 @@ export const updateUserProfile = async (request, response, next) => {
     next(error);
   }
 };
+
+export const userAuthenticated = async (request, response, next) => {
+  try {
+    const user = request.user;
+    return response.status(200).json({
+      success: true,
+      message: "User authenticated",
+      authUser: {
+        _id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        profilePic: user.profilePic,
+      },
+    });
+  } catch (error) {
+    console.error(
+      `Error, while checking user authentication: ${error.message}`,
+    );
+    next(error);
+  }
+};
