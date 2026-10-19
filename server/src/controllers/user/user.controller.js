@@ -1,9 +1,17 @@
+import User from "#models/user.model";
+import { uploadToCloudinary } from "#utils/cloudinary.util";
 import mongoose from "mongoose";
 
-export const updateUserProfile = (request, response, next) => {
+export const updateUserProfile = async (request, response, next) => {
+  console.log(request.user);
   try {
-    const { userId } = request.user;
+    const { _id: userId } = request.user;
     const { profilePic } = request.body;
+
+    const defaultOptions = {
+      new: true,
+      runValidators: true,
+    };
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return response
@@ -17,7 +25,21 @@ export const updateUserProfile = (request, response, next) => {
         .json({ success: false, message: "Profile pic required" });
     }
 
-    
+    const secureImageUrl = await uploadToCloudinary(profilePic);
+
+    const updatedUser = await User.findById(
+      userId,
+      {
+        profilePic: secureImageUrl,
+      },
+      defaultOptions,
+    );
+
+    return response.status(200).json({
+      success: true,
+      message: "User profile updated successfully",
+      updatedUser,
+    });
   } catch (error) {
     console.error(`Error, while updating user profile: ${error.message}`);
     next(error);
