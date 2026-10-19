@@ -1,6 +1,9 @@
-import express from "express"; 
+import { updateUserProfile } from "#controllers/user/user.controller";
+import { protectedRoute } from "#middlewares/auth.middleware";
+import express from "express";
 
-const router = express.Router(); 
+const router = express.Router();
 
-export default router; 
+router.put("/update-profile", protectedRoute, updateUserProfile);
 
+export default router;

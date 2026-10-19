@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser"
 import "dotenv/config";
 import appRoutes from "#routes/index.route";
 
@@ -14,6 +15,7 @@ app.use(
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+app.use(cookieParser()); 
 app.use("/api", appRoutes);
 
 app.use((error, request, response, next) => {

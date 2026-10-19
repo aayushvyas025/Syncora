@@ -26,5 +26,9 @@ export async function passwordChecker(password, hashedPassword) {
 }
 
 export function clearTokenCookie(response) {
- response.cookie('JWT_TOKEN', "", {maxAge:0})
+  response.cookie("JWT_TOKEN", "", { maxAge: 0 });
 }
+
+export const verifyToken = (token) => {
+  return jwt.verify(token, process.env.JWT_SECRET);
+};
