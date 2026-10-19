@@ -18,7 +18,13 @@ export function generateToken(userId, response) {
     secure: process.env.NODE_ENV !== "development",
   });
 
-  return token; 
-} 
+  return token;
+}
 
+export async function passwordChecker(password, hashedPassword) {
+  return await bcrypt.compare(password, hashedPassword);
+}
 
+export function clearTokenCookie(response) {
+ response.cookie('JWT_TOKEN', "", {maxAge:0})
+}
