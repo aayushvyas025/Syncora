@@ -3,7 +3,6 @@ import { uploadToCloudinary } from "#utils/cloudinary.util";
 import mongoose from "mongoose";
 
 export const updateUserProfile = async (request, response, next) => {
-  console.log(request.user);
   try {
     const { _id: userId } = request.user;
     const { profilePic } = request.body;
