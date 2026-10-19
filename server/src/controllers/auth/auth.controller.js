@@ -28,22 +28,26 @@ export async function signupUser(request, response, next) {
       password: hashedPassword,
     });
 
-    const token = generateToken(newUser._id, response);
-    
-    
-    if (!newUser || !token) {
-      return response
-      .status(400)
-      .json({ success: false, message: "User registration failed" });
-    } 
-    
     await newUser.save();
-   
-    return response.status(201).json({success:true, message:'User register successfully', newUser:{
-        _id: newUser?._id,
-        fullname:newUser?.fullname
-    }})
 
+    if (!newUser) {
+      return response
+        .status(400)
+        .json({ success: false, message: "User registration failed" });
+    }
+
+    generateToken(newUser._id, response);
+
+    return response.status(201).json({
+      success: true,
+      message: "User register successfully",
+      newUser: {
+        _id: newUser?._id,
+        fullname: newUser?.fullname,
+        email: newUser?.email,
+        profilePic: newUser?.profilePic,
+      },
+    });
   } catch (error) {
     console.error(`Error while signup: ${error.message}`);
     next(error);
