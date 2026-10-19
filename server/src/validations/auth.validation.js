@@ -1,11 +1,12 @@
 export const userInfoValidator = (
-  validationType,
+  validationType = "",
   fullname,
   email,
   password,
 ) => {
+
   if (
-    validationType === "signup" &&
+    validationType.toLowerCase() === "signup" &&
     (typeof fullname !== "string" || !fullname.trim())
   ) {
     return { isValid: false, field: `fullname is required` };

@@ -5,8 +5,8 @@ import { userInfoValidator } from "#validations/auth.validation";
 export async function signupUser(request, response, next) {
   try {
     const { fullname, email, password } = request.body;
-
-    const { isValid, field } = userInfoValidator({ fullname, email, password });
+     
+    const { isValid, field } = userInfoValidator('signup', fullname, email, password);
 
     if (!isValid) {
       return response.status(400).json({ success: false, message: field });

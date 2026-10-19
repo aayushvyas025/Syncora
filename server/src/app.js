@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import authRoutes from "#routes/auth.route"
+import appRoutes from "#routes/index.route";
 
 const app = express();
 
@@ -14,8 +14,7 @@ app.use(
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
-
-app.use('/auth', authRoutes); 
+app.use("/api", appRoutes);
 
 app.use((error, request, response, next) => {
   console.log(error.message);
