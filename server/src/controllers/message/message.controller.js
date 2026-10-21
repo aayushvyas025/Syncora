@@ -69,7 +69,9 @@ export const sendMessages = async (request, response, next) => {
 
     await newMessage.save();
 
-    
+    return response
+      .status(201)
+      .json({ success: true, message: "Message created", newMessage });
   } catch (error) {
     console.error(`Error, while sending messages: ${error.message}`);
     next(error);
