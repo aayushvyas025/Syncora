@@ -30,6 +30,13 @@ export const getAllUsers = async (request, response, next) => {
 export const getUserById = async (request, response, next) => {
   try {
     const { id } = request.params;
+   
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+      return response
+        .status(400)
+        .json({ success: false, message: "Invalid userId" });
+    }
+
     const user = await User.findById(id);
 
     if (!user) {
