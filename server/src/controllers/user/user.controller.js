@@ -1,5 +1,6 @@
 import User from "#models/user.model";
 import { uploadToCloudinary } from "#utils/cloudinary.util";
+import { request } from "express";
 import mongoose from "mongoose";
 
 export const getAllUsers = async (request, response, next) => {
@@ -20,6 +21,27 @@ export const getAllUsers = async (request, response, next) => {
       message:
         users.length > 0 ? `${users.length} Users fetched` : `No user found`,
     });
+  } catch (error) {
+    console.error(`Error, while fetching user: ${error.message}`);
+    next(error);
+  }
+};
+
+export const getUserById = async (request, response, next) => {
+  try {
+    const { id } = request.params;
+    const user = await User.findById(id);
+
+    if (!user) {
+      return response
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    return (
+      response.status(200),
+      json({ success: true, message: "User fetch from database" })
+    );
   } catch (error) {
     console.error(`Error, while fetching user: ${error.message}`);
     next(error);

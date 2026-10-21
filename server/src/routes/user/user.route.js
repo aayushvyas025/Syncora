@@ -1,6 +1,7 @@
 import {
   deleteUserProfile,
   getAllUsers,
+  getUserById,
   updateUserProfile,
   userAuthenticated,
 } from "#controllers/user/user.controller";
@@ -12,6 +13,7 @@ const router = express.Router();
 router.use(protectedRoute);
 
 router.get("/all", getAllUsers);
+router.get('/:id', getUserById)
 router.put("/update-profile", updateUserProfile);
 router.get("/authenticated", userAuthenticated);
 router.delete("/delete-profile", deleteUserProfile);
