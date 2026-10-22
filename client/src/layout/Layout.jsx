@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../components/pages/Navbar";
+import Navbar from "../components/page/Navbar";
 
 function Layout({ style, children }) {
   return (

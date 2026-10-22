@@ -45,7 +45,7 @@ const useAuthStore = create((set) => ({
          error.response?.data?.message ||
         `Error, while check Auth ${error.message}`;
 
-      console.log(message);
+      console.error(message);
       set({ isError: message, authUser: null });
       return { success: false, message, authUser: null };
     } finally {
@@ -53,3 +53,5 @@ const useAuthStore = create((set) => ({
     }
   },
 }));
+
+export default useAuthStore; 
