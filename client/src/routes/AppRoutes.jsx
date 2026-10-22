@@ -2,6 +2,7 @@ import { lazy, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "../layout/Layout";
 import useAuthStore from "../store/auth/authStore";
+import AppLoader from "../components/helper/AppLoader";
 
 const HomePage = lazy(() => import("../pages/Home/Home"));
 const AuthPage = lazy(() => import("../pages/Auth/Auth"));
@@ -10,11 +11,15 @@ const ProfilePage = lazy(() => import("../pages/Profile/Profile"));
 const NotFoundPage = lazy(() => import("../pages/NotFound/NotFound"));
 
 function AppRoutes() {
-  const { authUser, checkAuth } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  if (!authUser && isCheckingAuth) {
+    return <AppLoader />;
+  }
 
   return (
     <Layout>
