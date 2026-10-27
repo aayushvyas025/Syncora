@@ -33,16 +33,20 @@ const useAuthStore = create((set) => ({
     }
   },
   checkAuth: async () => {
-    set({ isCheckingAuth:true, isError: null });
+    set({ isCheckingAuth: true, isError: null });
     try {
       const { data } = await API.get("/user/authenticated");
 
       set({ authUser: data?.authUser });
 
-      return { success: true, message: data?.message, authUser: data?.authUser };
+      return {
+        success: true,
+        message: data?.message,
+        authUser: data?.authUser,
+      };
     } catch (error) {
       const message =
-         error.response?.data?.message ||
+        error.response?.data?.message ||
         `Error, while check Auth ${error.message}`;
 
       console.error(message);
@@ -52,6 +56,26 @@ const useAuthStore = create((set) => ({
       set({ isCheckingAuth: false });
     }
   },
+  loginUser: async ({ email, password }) => {
+    set({ isLoggingIn: true, isError: null });
+    try {
+      const { data } = await API.post("/auth/login", { email, password });
+      set({ authUser: data?.loginUser });
+      return {
+        success: true,
+        message: data?.message,
+        loginUser: data?.loginUser,
+      };
+    } catch (error) {
+      const message =
+        error.response?.data?.message ||
+        `Error, while login user: ${error.message}`;
+      console.error(message);
+      return { success: false, message, user: null };
+    } finally {
+      set({ isLoggingIn: false });
+    }
+  },
 }));
 
-export default useAuthStore; 
+export default useAuthStore;
