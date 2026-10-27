@@ -3,13 +3,14 @@ import AuthHeader from "../../components/page/AuthHeader";
 import Layout from "../../layout/Layout";
 import AuthForm from "../../components/form/AuthForm";
 import FormSwitcher from "../../components/helper/FormSwitcher";
+import AuthImagePattern from "../../components/helper/AuthImagePattern";
 
 function Auth() {
   const [formType, setFormType] = useState("signup");
   return (
     <Suspense>
       <Layout className="min-h-screen grid lg:grid-cols-2">
-        <div className="flex flex-col justify-content items-center p-6">
+        <div className="flex flex-col justify-center items-center p-6">
           <div className="flex flex-col w-full max-w-md justify-center items-center p-6 sm:p-12">
             <AuthHeader type={formType} />
             <AuthForm formType={formType} />
@@ -22,6 +23,7 @@ function Auth() {
             />
           </div>
         </div>
+        <AuthImagePattern />
       </Layout>
     </Suspense>
   );

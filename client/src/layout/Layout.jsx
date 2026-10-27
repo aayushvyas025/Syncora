@@ -1,12 +1,13 @@
-import React from "react";
 import Navbar from "../components/page/Navbar";
 
 function Layout({ style, children }) {
   return (
-    <div className={style}>
+    <>
       <Navbar />
+    <main className={style}>
       {children}
-    </div>
+    </main>
+    </>
   );
 }
 
