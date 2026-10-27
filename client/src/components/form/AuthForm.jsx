@@ -5,8 +5,9 @@ import {
   validateUserInfo,
 } from "../../utils/validations";
 import Input from "./Input";
-import {  Lock, Mail, User } from "lucide-react";
+import { Lock, Mail, User } from "lucide-react";
 import SubmitBtn from "../helper/SubmitBtn";
+import { errorToast } from "../../utils/toast";
 
 function AuthForm({ formType }) {
   const [formData, setFormData] = useState({
@@ -26,6 +27,7 @@ function AuthForm({ formType }) {
     });
 
     if (!isValid) {
+      errorToast(error);
     }
   }
 
@@ -36,11 +38,22 @@ function AuthForm({ formType }) {
     });
 
     if (!isValid) {
+      errorToast(error);
     }
   }
 
   async function handleFormSubmit(event) {
     event.preventDefault();
+
+    switch (formType) {
+      case "signup":
+        await handleSignup(); 
+        break;
+
+      case "login":
+        await handleLogin(); 
+        break;
+    }
   }
 
   return (

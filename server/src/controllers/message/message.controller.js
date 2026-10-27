@@ -49,10 +49,10 @@ export const sendMessages = async (request, response, next) => {
         .json({ success: false, message: "Invalid userId" });
     }
 
-    const { isValid, field } = messageInfoValidation(text, image);
+    const { isValid, error } = messageInfoValidation(text, image);
 
     if (!isValid) {
-      return response.status(400).json({ success: false, message: field });
+      return response.status(400).json({ success: false, message: error });
     }
 
     let secureImageUrl;
