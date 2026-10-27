@@ -1,6 +1,5 @@
 import { lazy, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Layout from "../layout/Layout";
 import useAuthStore from "../store/auth/authStore";
 import AppLoader from "../components/helper/AppLoader";
 
@@ -22,7 +21,6 @@ function AppRoutes() {
   }
 
   return (
-    <Layout>
       <Routes>
         <Route
           path="/auth"
@@ -39,7 +37,6 @@ function AppRoutes() {
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </Layout>
   );
 }
 

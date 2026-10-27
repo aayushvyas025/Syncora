@@ -4,8 +4,10 @@ import {
   validateUserCredentials,
   validateUserInfo,
 } from "../../utils/validations";
+import Input from "./Input";
+import { Mail, User } from "lucide-react";
 
-function AuthForm({formType}) {
+function AuthForm({ formType }) {
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -40,7 +42,28 @@ function AuthForm({formType}) {
     event.preventDefault();
   }
 
-  return <form onSubmit={handleFormSubmit}>AuthForm</form>;
+  return (
+    <form onSubmit={handleFormSubmit} className="w-full space-y-6">
+      <Input
+        type="text"
+        icon={User}
+        placeholder={"Fullname"}
+        value={formData.fullname}
+        onChange={(event) =>
+          setFormData({ ...formData, fullname: event.target.value })
+        }
+      />
+      <Input
+        type="email"
+        icon={Mail}
+        placeholder={"Email"}
+        value={formData.email}
+        onChange={(event) =>
+          setFormData({ ...formData, email: event.target.email })
+        }
+      />
+    </form>
+  );
 }
 
 export default AuthForm;
