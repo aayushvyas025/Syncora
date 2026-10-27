@@ -5,7 +5,7 @@ import {
   validateUserInfo,
 } from "../../utils/validations";
 import Input from "./Input";
-import { Mail, User } from "lucide-react";
+import { Lock, Mail, User } from "lucide-react";
 
 function AuthForm({ formType }) {
   const [formData, setFormData] = useState({
@@ -13,7 +13,7 @@ function AuthForm({ formType }) {
     email: "",
     password: "",
   });
-  const [password, setPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { isSigningUp, signupUser, isLoggingIn, loginUser } = useAuthStore();
 
@@ -44,15 +44,17 @@ function AuthForm({ formType }) {
 
   return (
     <form onSubmit={handleFormSubmit} className="w-full space-y-6">
-      <Input
-        type="text"
-        icon={User}
-        placeholder={"Fullname"}
-        value={formData.fullname}
-        onChange={(event) =>
-          setFormData({ ...formData, fullname: event.target.value })
-        }
-      />
+      {formType === "signup" && (
+        <Input
+          type="text"
+          icon={User}
+          placeholder={"Fullname"}
+          value={formData.fullname}
+          onChange={(event) =>
+            setFormData({ ...formData, fullname: event.target.value })
+          }
+        />
+      )}
       <Input
         type="email"
         icon={Mail}
@@ -61,6 +63,18 @@ function AuthForm({ formType }) {
         onChange={(event) =>
           setFormData({ ...formData, email: event.target.email })
         }
+      />
+      <Input
+        type={showPassword ? "text" : "password"}
+        icon={Lock}
+        placeholder={"Password"}
+        value={formData.password}
+        onChange={(event) =>
+          setFormData({ ...formData, password: event.target.value })
+        }
+        passwordField={true}
+        showPassword={showPassword}
+        handleShowPassword={() => setShowPassword(!showPassword)}
       />
     </form>
   );
