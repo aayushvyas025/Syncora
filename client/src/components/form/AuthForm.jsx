@@ -42,7 +42,7 @@ function AuthForm({ formType }) {
         errorToast(message);
         return;
       }
-
+      setFormData({ fullname: "", email: "", password: "" });
       successToast(message);
     } catch (error) {
       console.error(`Error: ${error.message}`);
@@ -71,7 +71,7 @@ function AuthForm({ formType }) {
         errorToast(message);
         return;
       }
-
+      setFormData({ email: "", password: "" });
       successToast(message);
     } catch (error) {
       console.error(`Error: ${error.message}`);
