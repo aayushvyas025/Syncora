@@ -9,8 +9,8 @@ function Auth() {
   const [formType, setFormType] = useState("signup");
   return (
     <Suspense>
-      <Layout className="min-h-screen grid lg:grid-cols-2">
-        <div className="flex flex-col justify-center items-center p-6">
+      <Layout style="min-h-screen grid grid-cols-1 lg:grid-cols-2">
+        <div className="flex flex-col justify-c items-center p-6">
           <div className="flex flex-col w-full max-w-md justify-center items-center p-6 sm:p-12">
             <AuthHeader type={formType} />
             <AuthForm formType={formType} />

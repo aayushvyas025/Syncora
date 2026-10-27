@@ -2,7 +2,7 @@ import React from "react";
 
 function FormSwitcher({ text, handleFormSwitch, title }) {
   return (
-    <div className="text-center mt-2">
+    <div className="text-center mt-4">
       <p className="text-content/60">
         {text}
         <button
