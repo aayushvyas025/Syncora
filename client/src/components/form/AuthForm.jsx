@@ -5,7 +5,8 @@ import {
   validateUserInfo,
 } from "../../utils/validations";
 import Input from "./Input";
-import { Lock, Mail, User } from "lucide-react";
+import { Loader2, Lock, Mail, User } from "lucide-react";
+import SubmitBtn from "../helper/SubmitBtn";
 
 function AuthForm({ formType }) {
   const [formData, setFormData] = useState({
@@ -75,6 +76,11 @@ function AuthForm({ formType }) {
         passwordField={true}
         showPassword={showPassword}
         handleShowPassword={() => setShowPassword(!showPassword)}
+      />
+      <SubmitBtn
+        title={formType === "signup" ? "Create Account" : ""}
+        loading={formType === "signup" ? isSigningUp : isLoggingIn}
+        disabled={formType === "signup" ? isSigningUp : isLoggingIn}
       />
     </form>
   );
