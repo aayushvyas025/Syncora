@@ -58,12 +58,23 @@ function AuthForm({ formType }) {
 
     if (!isValid) {
       errorToast(error);
+      return;
     }
 
     try {
-      
+      const { success, message } = await loginUser({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (!success) {
+        errorToast(message);
+        return;
+      }
+
+      successToast(message);
     } catch (error) {
-       console.error(`Error: ${error.message}`);
+      console.error(`Error: ${error.message}`);
       errorToast("Something went wrong. Please try again.");
     }
   }
