@@ -12,14 +12,14 @@ const useAuthStore = create((set) => ({
   signupUser: async ({ fullname, email, password }) => {
     set({ isSigningUp: true, isError: null });
     try {
-      const { data, message } = await API.post("/auth/signup", {
+      const { data } = await API.post("/auth/signup", {
         fullname,
         password,
         email,
       });
 
       set({ authUser: data?.newUser });
-      return { success: true, message, newUser: data?.newUser };
+      return { success: true, message:data?.message, newUser: data?.newUser };
     } catch (error) {
       const message =
         error?.response?.data?.message ||
@@ -27,7 +27,7 @@ const useAuthStore = create((set) => ({
       console.error(message);
 
       set({ isError: message });
-      return { success: false, message: data?.message, newUser: null };
+      return { success: false, message:message, newUser: null };
     } finally {
       set({ isSigningUp: false });
     }

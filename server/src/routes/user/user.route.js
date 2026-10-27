@@ -13,9 +13,9 @@ const router = express.Router();
 router.use(protectedRoute);
 
 router.get("/all", getAllUsers);
-router.get('/:id', getUserById)
-router.put("/update-profile", updateUserProfile);
 router.get("/authenticated", userAuthenticated);
+router.put("/update-profile", updateUserProfile);
 router.delete("/delete-profile", deleteUserProfile);
+router.get('/:id', getUserById)
 
 export default router;

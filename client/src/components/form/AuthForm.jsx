@@ -7,7 +7,7 @@ import {
 import Input from "./Input";
 import { Lock, Mail, User } from "lucide-react";
 import SubmitBtn from "../helper/SubmitBtn";
-import { errorToast } from "../../utils/toast";
+import { errorToast, successToast } from "../../utils/toast";
 
 function AuthForm({ formType }) {
   const [formData, setFormData] = useState({
@@ -28,6 +28,25 @@ function AuthForm({ formType }) {
 
     if (!isValid) {
       errorToast(error);
+      return;
+    }
+
+    try {
+      const { success, message } = await signupUser({
+        fullname: formData.fullname,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (!success) {
+        errorToast(message);
+        return;
+      }
+
+      successToast(message);
+    } catch (error) {
+      console.error(`Error: ${error.message}`);
+      errorToast("Something went wrong. Please try again.");
     }
   }
 
@@ -40,6 +59,13 @@ function AuthForm({ formType }) {
     if (!isValid) {
       errorToast(error);
     }
+
+    try {
+      
+    } catch (error) {
+       console.error(`Error: ${error.message}`);
+      errorToast("Something went wrong. Please try again.");
+    }
   }
 
   async function handleFormSubmit(event) {
@@ -47,12 +73,16 @@ function AuthForm({ formType }) {
 
     switch (formType) {
       case "signup":
-        await handleSignup(); 
-        break;
+        await handleSignup();
+        return;
 
       case "login":
-        await handleLogin(); 
-        break;
+        await handleLogin();
+        return;
+
+      default:
+        console.warn(`Unknown, form type: ${formType}`);
+        return;
     }
   }
 
@@ -75,7 +105,7 @@ function AuthForm({ formType }) {
         placeholder={"Email"}
         value={formData.email}
         onChange={(event) =>
-          setFormData({ ...formData, email: event.target.email })
+          setFormData({ ...formData, email: event.target.value })
         }
       />
       <Input
