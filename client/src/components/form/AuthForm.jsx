@@ -5,7 +5,7 @@ import {
   validateUserInfo,
 } from "../../utils/validations";
 import Input from "./Input";
-import { Loader2, Lock, Mail, User } from "lucide-react";
+import {  Lock, Mail, User } from "lucide-react";
 import SubmitBtn from "../helper/SubmitBtn";
 
 function AuthForm({ formType }) {
