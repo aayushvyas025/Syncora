@@ -1,8 +1,11 @@
 import { Suspense } from 'react'
+import Layout from '../../layout/Layout'
 
 function Profile() {
   return (
-    <Suspense>Profile</Suspense>
+    <Suspense>
+      <Layout></Layout>
+    </Suspense>
   )
 }
 
