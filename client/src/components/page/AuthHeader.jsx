@@ -9,10 +9,10 @@ function AuthHeader({ type }) {
             <MessagesCircle className="size-8 text-primary" />
           </div>
           <h1 className="text-2xl font-bold mt-2">
-            {type === "signup" ? "Create Account" : ""}
+            {type === "signup" ? "Create Account" : "Welcome Back"}
           </h1>
           <p className="text-base-content/60">
-            {type === "signup" ? "Get started with your free account" : ""}
+            {type === "signup" ? "Get started with your free account" : "Sign in to your account"}
           </p>
         </div>
       </div>

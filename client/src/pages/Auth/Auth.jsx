@@ -6,7 +6,7 @@ import FormSwitcher from "../../components/helper/FormSwitcher";
 import AuthImagePattern from "../../components/helper/AuthImagePattern";
 
 function Auth() {
-  const [formType, setFormType] = useState("signup");
+  const [formType, setFormType] = useState("login");
   return (
     <Suspense>
       <Layout style="min-h-screen grid grid-cols-1 lg:grid-cols-2">
@@ -15,7 +15,7 @@ function Auth() {
             <AuthHeader type={formType} />
             <AuthForm formType={formType} />
             <FormSwitcher
-              text={formType ? "Already have an account ?" : ""}
+              text={formType === "signup" ? "Already have an account ?" : "Don't have an account ?"}
               handleFormSwitch={() =>
                 setFormType(formType === "signup" ? "login" : "signup")
               }

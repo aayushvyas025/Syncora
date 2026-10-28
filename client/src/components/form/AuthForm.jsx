@@ -132,7 +132,7 @@ function AuthForm({ formType }) {
         handleShowPassword={() => setShowPassword(!showPassword)}
       />
       <SubmitBtn
-        title={formType === "signup" ? "Create Account" : ""}
+        title={formType === "signup" ? "Create Account" : "Sign In"}
         loading={formType === "signup" ? isSigningUp : isLoggingIn}
         disabled={formType === "signup" ? isSigningUp : isLoggingIn}
       />
