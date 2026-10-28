@@ -5,7 +5,7 @@ import Logo from "../helper/Logo";
 import NavLink from "../helper/NavLink";
 
 function Navbar() {
-  const { authUser, isLoggedOut, logoutUser } = useAuthStore();
+  const { authUser,  logoutUser } = useAuthStore();
 
   async function handleLogout() {
     const { success, message } = await logoutUser();
