@@ -30,8 +30,8 @@ export const getAllUsers = async (request, response, next) => {
 export const getUserById = async (request, response, next) => {
   try {
     const { id } = request.params;
-   
-      if (!mongoose.Types.ObjectId.isValid(id)) {
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       return response
         .status(400)
         .json({ success: false, message: "Invalid userId" });
@@ -109,6 +109,8 @@ export const userAuthenticated = async (request, response, next) => {
         fullname: user.fullname,
         email: user.email,
         profilePic: user.profilePic,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
       },
     });
   } catch (error) {

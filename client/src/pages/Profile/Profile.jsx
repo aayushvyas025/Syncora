@@ -4,9 +4,11 @@ import useAuthStore from "../../store/auth/authStore";
 import ProfileHeader from "../../components/page/ProfileHeader";
 import ProfileAvatar from "../../components/page/ProfileAvatar";
 import ProfileInfo from "../../components/page/ProfileInfo";
+import AccountInfo from "../../components/page/AccountInfo";
 
 function Profile() {
   const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
+  console.log(authUser)
 
   return (
     <Suspense>
@@ -21,6 +23,7 @@ function Profile() {
                 updateProfile={updateProfile}
               />
               <ProfileInfo user={authUser} />
+              <AccountInfo user={authUser} />
             </div>
           </div>
         </div>
