@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import Layout from '../../layout/Layout'
 import useAuthStore from '../../store/auth/authStore'
 import ProfileHeader from '../../components/page/ProfileHeader';
+import ProfileAvatar from '../../components/page/ProfileAvatar';
 
 function Profile() {
   const {authUser, isUpdatingProfile, updateProfile} = useAuthStore(); 
@@ -18,6 +19,7 @@ function Profile() {
           <div className="bg-base-300 rounded-xl p-6 space-y-8">
             <div className="bg-base-300 rounded-xl p-6 space-y-8">
                <ProfileHeader />
+               <ProfileAvatar user={authUser} updatingProfile={isUpdatingProfile} />
             </div>
           </div>
         </div>
