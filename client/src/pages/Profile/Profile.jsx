@@ -3,6 +3,7 @@ import Layout from "../../layout/Layout";
 import useAuthStore from "../../store/auth/authStore";
 import ProfileHeader from "../../components/page/ProfileHeader";
 import ProfileAvatar from "../../components/page/ProfileAvatar";
+import ProfileInfo from "../../components/page/ProfileInfo";
 
 function Profile() {
   const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
@@ -19,6 +20,7 @@ function Profile() {
                 updatingProfile={isUpdatingProfile}
                 updateProfile={updateProfile}
               />
+              <ProfileInfo user={authUser} />
             </div>
           </div>
         </div>
