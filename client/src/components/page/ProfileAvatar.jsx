@@ -2,7 +2,6 @@ import { Camera } from "lucide-react";
 import ImageUploader from "../form/ImageUploader";
 
 function ProfileAvatar({ user, updatingProfile }) {
-    console.log(updatingProfile)
   async function handleImageUpload() {}
 
   async function handleProfileUpdate() {}
@@ -21,6 +20,9 @@ function ProfileAvatar({ user, updatingProfile }) {
           onChange={handleProfileUpdate}
         />
       </div>
+        <p className="text-sm text-zinc-400">
+            {updatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
+        </p>
     </div>
   );
 }
