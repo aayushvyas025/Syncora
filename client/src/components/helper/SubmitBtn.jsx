@@ -4,7 +4,7 @@ function SubmitBtn({ disabled, title, loading }) {
   return (
     <button
       type="submit"
-      className="btn btn-primary w-full"
+      className="btn btn-primary w-full text-slate-100"
       disabled={disabled}
     >
       {loading ? (

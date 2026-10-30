@@ -15,7 +15,7 @@ router.use(protectedRoute);
 router.get("/all", getAllUsers);
 router.get("/authenticated", userAuthenticated);
 router.put("/update-profile", updateUserProfile);
-router.delete("/delete-profile", deleteUserProfile);
+router.delete("/delete/:id", deleteUserProfile);
 router.get('/:id', getUserById)
 
 export default router;

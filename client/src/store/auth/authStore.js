@@ -9,6 +9,7 @@ const useAuthStore = create((set) => ({
   isLoggingIn: false,
   isLoggedOut: false,
   isUpdatingProfile: false,
+  isDeleteUser: false,
   signupUser: async ({ fullname, email, password }) => {
     set({ isSigningUp: true, error: null });
     try {
@@ -91,6 +92,36 @@ const useAuthStore = create((set) => ({
       return { success: false, message, authUser: null };
     } finally {
       set({ isLoggedOut: false });
+    }
+  },
+  updateProfile: async () => {
+    set({ isUpdatingProfile: true, error: null });
+    try {
+    } catch (error) {
+      const message =
+        error.response?.data?.message ||
+        `Error, while updating user profile: ${error.message}`;
+      console.error(message);
+      set({ error: message });
+      return { success: false, message };
+    } finally {
+      set({ isUpdatingProfile: false });
+    }
+  },
+  deleteProfile: async (userId) => {
+    set({ isDeleteUser: true, error: null });
+    try {
+      const { data } = await API.delete(`/user/delete/${userId}`);
+      set({ authUser: null });
+      return { success: true, message: data.message };
+    } catch (error) {
+      const message =
+        error?.response?.data?.message ||
+        `Error, while delete user: ${error.message}`;
+      console.error(message);
+      set({ error: message });
+    } finally {
+      set({ isDeleteUser: false });
     }
   },
 }));
