@@ -5,10 +5,20 @@ import ProfileHeader from "../../components/page/ProfileHeader";
 import ProfileAvatar from "../../components/page/ProfileAvatar";
 import ProfileInfo from "../../components/page/ProfileInfo";
 import AccountInfo from "../../components/page/AccountInfo";
+import AppLoader from "../../components/helper/AppLoader";
 
 function Profile() {
-  const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
-  console.log(authUser)
+  const {
+    authUser,
+    isUpdatingProfile,
+    updateProfile,
+    deleteProfile,
+    isDeleteUser,
+  } = useAuthStore();
+
+  if (isDeleteUser) {
+    return <AppLoader />;
+  }
 
   return (
     <Suspense>
@@ -23,7 +33,7 @@ function Profile() {
                 updateProfile={updateProfile}
               />
               <ProfileInfo user={authUser} />
-              <AccountInfo user={authUser} />
+              <AccountInfo user={authUser} deleteProfile={deleteProfile} />
             </div>
           </div>
         </div>

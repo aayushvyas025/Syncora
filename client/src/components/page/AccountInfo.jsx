@@ -1,8 +1,18 @@
 import { useState } from "react";
 import AccountDeleteModal from "../helper/AccountDeleteModal";
+import { errorToast, successToast } from "../../utils/toast";
 
-function AccountInfo({ user }) {
+function AccountInfo({ user, deleteProfile }) {
   const [deleteUser, setDeleteUser] = useState(false);
+
+  async function handleDeleteUser() {
+    const { success, message } = await deleteProfile(user._id);
+    if (!success) {
+      errorToast(message);
+    }
+
+    successToast(message);
+  }
   return (
     <div className="mt-6 bg-base-300 rounded-xl p-6">
       <h2 className="text-lg font-medium mb-4">Account Information</h2>
@@ -29,7 +39,12 @@ function AccountInfo({ user }) {
               Delete
             </button>
           </div>
-          {deleteUser && <AccountDeleteModal closeModal={() => setDeleteUser(!deleteUser)} />}
+          {deleteUser && (
+            <AccountDeleteModal
+              closeModal={() => setDeleteUser(!deleteUser)}
+              handleDeleteAccount={handleDeleteUser}
+            />
+          )}
         </div>
       </div>
     </div>
