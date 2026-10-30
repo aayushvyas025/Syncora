@@ -1,7 +1,6 @@
-import { Camera } from "lucide-react";
 import ImageUploader from "../form/ImageUploader";
 
-function ProfileAvatar({ user, updatingProfile }) {
+function ProfileAvatar({ user, updatingProfile, updateProfile }) {
   async function handleImageUpload() {}
 
   async function handleProfileUpdate() {}
