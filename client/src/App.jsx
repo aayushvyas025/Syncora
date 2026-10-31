@@ -1,13 +1,13 @@
-import React from "react";
 import AppRoutes from "./routes/AppRoutes";
 import Favicon from "./components/helper/Favicon";
+import ThemeProvider from "./context/themeContext";
 
 function App() {
   return (
-    <>
-    <Favicon />
+    <ThemeProvider>
+      <Favicon />
       <AppRoutes />
-    </>
+    </ThemeProvider>
   );
 }
 

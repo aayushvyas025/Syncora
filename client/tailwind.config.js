@@ -12,12 +12,14 @@ export default {
       "dark",
       "bumblebee",
       "synthwave",
-      "coporate",
+      "corporate",
       "halloween",
       "forest",
       "dim", 
       "night",
-      "sunset"
+      "sunset",
+      "luxury",
+      "business"
     ]
   }
 };
