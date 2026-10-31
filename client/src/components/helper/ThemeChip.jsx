@@ -16,7 +16,9 @@ function ThemeChip({ theme, currentTheme, handleTheme }) {
           <div className="rounded bg-neutral"></div>
         </div>
       </div>
-      <span></span>
+      <span className="text-[11px] font-medium truncate w-full text-center">
+        {currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1)}
+      </span>
     </button>
   );
 }
