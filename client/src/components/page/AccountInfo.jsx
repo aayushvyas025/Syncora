@@ -29,6 +29,12 @@ function AccountInfo({ user, deleteProfile }) {
           <span>Account Status</span>
           <span className="text-green-500 p-2">Active</span>
         </div>
+        {deleteUser && (
+            <AccountDeleteModal
+              closeModal={() => setDeleteUser(!deleteUser)}
+              handleDeleteAccount={handleDeleteUser}
+            />
+          )}
         <div className="space-y-3 text-sm mb-2">
           <div className="flex items-center justify-between py-2">
             <span>Account Delete</span>
@@ -39,12 +45,6 @@ function AccountInfo({ user, deleteProfile }) {
               Delete
             </button>
           </div>
-          {deleteUser && (
-            <AccountDeleteModal
-              closeModal={() => setDeleteUser(!deleteUser)}
-              handleDeleteAccount={handleDeleteUser}
-            />
-          )}
         </div>
       </div>
     </div>

@@ -4,6 +4,8 @@ const content = Object.freeze({
     login: {},
   },
   themes: {
+    title: "Theme",
+    subTitle: "Choose a theme for your chat interface",
     list: [
       "light",
       "dark",
@@ -17,6 +19,17 @@ const content = Object.freeze({
       "sunset",
       "luxury",
       "business",
+    ],
+  },
+  preview: {
+    title: "",
+    previewMessages: [
+      { id: 1, content: `Hey! How's it going ?`, isSent: false },
+      {
+        id: 2,
+        content: `I"m doing great! Just working on some new features.`,
+        isSent: true,
+      },
     ],
   },
 });

@@ -12,7 +12,7 @@ export function useTheme() {
 
 function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(
-    localStorage.getItem("app-theme") || "dark",
+    localStorage.getItem("app-theme") || "halloween",
   );
 
   function toggleTheme(theme) {
