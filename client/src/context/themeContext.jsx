@@ -11,9 +11,12 @@ export function useTheme() {
 }
 
 function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState(
+    localStorage.getItem("app-theme") || "dark",
+  );
 
   function toggleTheme(theme) {
+    localStorage.setItem("app-theme", theme);
     setTheme(theme);
   }
   return <ThemeContext value={{ theme, toggleTheme }}>{children}</ThemeContext>;

@@ -1,13 +1,14 @@
 import AppRoutes from "./routes/AppRoutes";
 import Favicon from "./components/helper/Favicon";
-import ThemeProvider from "./context/themeContext";
+import { useTheme } from "./context/themeContext";
 
 function App() {
+  const { theme } = useTheme();
   return (
-    <ThemeProvider>
+    <div data-theme={theme}>
       <Favicon />
       <AppRoutes />
-    </ThemeProvider>
+    </div>
   );
 }
 
