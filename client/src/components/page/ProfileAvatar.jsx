@@ -1,4 +1,4 @@
-import { errorToast } from "../../utils/toast";
+import { errorToast, successToast } from "../../utils/toast";
 import { validateImage } from "../../utils/validations";
 import ImageUploader from "../form/ImageUploader";
 
@@ -18,7 +18,15 @@ function ProfileAvatar({ user, updatingProfile, updateProfile }) {
         errorToast(error);
         return;
       }
-      await updateProfile({ profilePic: base64Image });
+      const { success, message } = await updateProfile({
+        profilePic: base64Image,
+      });
+
+      if (!success) {
+        errorToast(message);
+        return;
+      }
+      successToast(message);
     };
   }
 
