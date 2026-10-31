@@ -94,9 +94,16 @@ const useAuthStore = create((set) => ({
       set({ isLoggedOut: false });
     }
   },
-  updateProfile: async () => {
+  updateProfile: async ({ profilePic }) => {
     set({ isUpdatingProfile: true, error: null });
     try {
+      const { data } = await API.put("/user/update-profile", { profilePic });
+      set({ authUser: data?.updatedUser });
+      return {
+        success: true,
+        message: data?.message,
+        updatedUser: data?.updatedUser,
+      };
     } catch (error) {
       const message =
         error.response?.data?.message ||
