@@ -2,6 +2,7 @@ import { create } from "zustand";
 import API from "../../configs/axios/axios";
 
 const useAuthStore = create((set) => ({
+  onlineUsers:[],
   isSigningUp: false,
   error: null,
   authUser: null,

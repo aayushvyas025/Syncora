@@ -4,11 +4,12 @@ import { errorToast } from "../../utils/toast";
 import SidebarSkeleton from "../skeletons/SidebarSkeleton";
 import SidebarHeader from "../helper/SidebarHeader";
 import SidebarUsers from "../helper/SidebarUsers";
+import useAuthStore from "../../store/auth/authStore";
 
 function Sidebar() {
   const { users, fetchAllUsers, setSelectedUser, selectedUser, isUserLoading } =
     useUserStore();
-  const onlineUsers = [];
+  const {onlineUsers} = useAuthStore(); 
 
   async function handleFetchAllUsers() {
     const { success, message } = await fetchAllUsers();
