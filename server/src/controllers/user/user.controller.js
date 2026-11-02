@@ -20,6 +20,7 @@ export const getAllUsers = async (request, response, next) => {
       success: true,
       message:
         users.length > 0 ? `${users.length} Users fetched` : `No user found`,
+      users,
     });
   } catch (error) {
     console.error(`Error, while fetching user: ${error.message}`);
