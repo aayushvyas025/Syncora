@@ -25,6 +25,28 @@ const useUserStore = create((set) => ({
       set({ isUserLoading: false });
     }
   },
+  fetchMessages: async (userId) => {
+    set({ isMessagesLoading: true, error: null });
+
+    try {
+      const { data } = await API.get(`/message/${userId}`);
+      set({ messages: data?.messages });
+      return {
+        success: true,
+        message: data?.message,
+        userMessages: data?.messages,
+      };
+    } catch (error) {
+      const message =
+        error.response?.data?.message ||
+        `Error, while fetching messages: ${error.message}`;
+      console.log(message);
+      set({ error: message });
+      return { success: false, message, userMessages: null };
+    } finally {
+      set({ isMessagesLoading: false });
+    }
+  },
 }));
 
 export default useUserStore;
