@@ -28,6 +28,9 @@ function Sidebar() {
       <div className="border-b border-base-300 w-full p-5 ">
         <SidebarHeader />
       </div>
+      <div className="overflow-y-auto w-full py-3">
+        
+      </div>
     </div>
   );
 }
