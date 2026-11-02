@@ -3,6 +3,7 @@ import useUserStore from "../../store/user/userStore";
 import { errorToast } from "../../utils/toast";
 import SidebarSkeleton from "../skeletons/SidebarSkeleton";
 import SidebarHeader from "../helper/SidebarHeader";
+import SidebarUsers from "../helper/SidebarUsers";
 
 function Sidebar() {
   const { users, fetchAllUsers, setSelectedUser, selectedUser, isUserLoading } =
@@ -29,7 +30,15 @@ function Sidebar() {
         <SidebarHeader />
       </div>
       <div className="overflow-y-auto w-full py-3">
-        
+        {users.map((user) => (
+          <SidebarUsers
+            key={user._id}
+            onClick={() => setSelectedUser(user)}
+            selectedUser={selectedUser}
+            user={user}
+            onlineUsers={onlineUsers}
+          />
+        ))}
       </div>
     </div>
   );
