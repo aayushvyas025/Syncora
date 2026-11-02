@@ -8,6 +8,7 @@ const useUserStore = create((set) => ({
   messages: [],
   isUserLoading: false,
   isMessagesLoading: false,
+  setSelectedUser: (user) => set({ selectedUser: user }),
   fetchAllUsers: async () => {
     set({ isUserLoading: true, error: null });
     try {
