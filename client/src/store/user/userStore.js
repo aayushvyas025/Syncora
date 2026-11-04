@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import API from "../../configs/axios/axios";
 
-const useUserStore = create((set) => ({
+const useUserStore = create((set, get) => ({
   users: [],
   error: null,
   selectedUser: null,
@@ -19,7 +19,7 @@ const useUserStore = create((set) => ({
       const message =
         error.response?.data?.message ||
         `Error, while get all users: ${error.message}`;
-      console.log(message);
+      console.error(message);
       set({ error: message });
       return { success: false, message, users: null };
     } finally {
@@ -41,9 +41,30 @@ const useUserStore = create((set) => ({
       const message =
         error.response?.data?.message ||
         `Error, while fetching messages: ${error.message}`;
-      console.log(message);
+      console.error(message);
       set({ error: message });
       return { success: false, message, userMessages: null };
+    } finally {
+      set({ isMessagesLoading: false });
+    }
+  },
+  sendMessages: async ({ text, image }) => {
+    const { selectedUser } = get();
+    set({ isMessagesLoading: true, error: null });
+    try {
+      const { data } = await API.post(`/message/${selectedUser?._id}`, {
+        text,
+        image,
+      });
+      set((state) => ({ messages: [...state.messages, data?.newMessage] }));
+      return { success: true, message: data?.message };
+    } catch (error) {
+      const message =
+        error.response?.data?.message ||
+        `Error, while sending messages: ${error.message}`;
+      console.error(message);
+      set({ error: message });
+      return { success: false, message };
     } finally {
       set({ isMessagesLoading: false });
     }
