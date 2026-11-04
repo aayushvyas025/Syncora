@@ -1,6 +1,7 @@
 import Message from "#models/message.model";
 import { uploadToCloudinary } from "#utils/cloudinary.util";
 import { messageInfoValidation } from "#validations/message.validation";
+import mongoose from "mongoose";
 
 export const getMessages = async (request, response, next) => {
   try {
