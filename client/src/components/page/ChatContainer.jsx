@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useUserStore from "../../store/user/userStore";
-import { successToast } from "../../utils/toast";
+import { errorToast } from "../../utils/toast";
 import ChatHeader from "../helper/ChatHeader";
 import ChatWindow from "../helper/ChatWindow";
 import MessageInput from "../form/MessageInput";
@@ -8,15 +8,20 @@ import useAuthStore from "../../store/auth/authStore";
 import ChatContainerSkeleton from "../skeletons/ChatContainerSkeleton";
 
 function ChatContainer() {
-  const { messages, fetchMessages, isMessagesLoading, selectedUser } =
-    useUserStore();
+  const {
+    messages,
+    fetchMessages,
+    isMessagesLoading,
+    selectedUser,
+    sendMessages,
+  } = useUserStore();
 
   const { onlineUsers } = useAuthStore();
 
   async function handleFetchMessages() {
     const { success, message } = await fetchMessages(selectedUser?._id);
     if (!success) {
-      successToast(message);
+      errorToast(message);
       return;
     }
   }
@@ -34,8 +39,8 @@ function ChatContainer() {
         closeWindow={() => selectedUser(null)}
         isOnline={onlineUsers.includes(selectedUser?._id)}
       />
-      <ChatWindow />
-      <MessageInput />
+      <ChatWindow messages={messages} />
+      <MessageInput user={selectedUser} sendMessages={sendMessages} />
     </div>
   );
 }
