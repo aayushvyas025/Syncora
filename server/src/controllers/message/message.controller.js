@@ -51,7 +51,7 @@ export const sendMessages = async (request, response, next) => {
 
     let secureImageUrl;
     if (image) {
-      secureImageUrl = uploadToCloudinary(image);
+      secureImageUrl = await uploadToCloudinary(image);
     }
 
     const newMessage = new Message({
