@@ -54,10 +54,4 @@ export function validateUserCredentials({ email, password }) {
   return { isValid: true, error: null };
 }
 
-export function validateImage(image) {
-  if (typeof image !== "string" || !image.trim()) {
-    return { isValid: false, error: "Invalid, image require" };
-  }
 
-  return { isValid: true, error: null };
-}

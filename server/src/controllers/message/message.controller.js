@@ -1,6 +1,5 @@
 import Message from "#models/message.model";
 import { uploadToCloudinary } from "#utils/cloudinary.util";
-import { messageInfoValidation } from "#validations/message.validation";
 import mongoose from "mongoose";
 
 export const getMessages = async (request, response, next) => {
@@ -48,12 +47,6 @@ export const sendMessages = async (request, response, next) => {
       return response
         .status(400)
         .json({ success: false, message: "Invalid userId" });
-    }
-
-    const { isValid, error } = messageInfoValidation(text, image);
-
-    if (!isValid) {
-      return response.status(400).json({ success: false, message: error });
     }
 
     let secureImageUrl;

@@ -14,8 +14,7 @@ function Home() {
           <div className="bg-base-100 rounded-lg shadow-xl w-full max-w-6xl h-[calc(100vh-8rem)]">
             <div className="flex h-full rounded-lg overflow-hidden">
               <Sidebar />
-              {/* {!selectedUser ? <ChatPlaceholder /> : <ChatContainer />} */}
-              <ChatContainer />
+              {!selectedUser ? <ChatPlaceholder /> : <ChatContainer />}
             </div>
           </div>
         </div>

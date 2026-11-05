@@ -40,7 +40,7 @@ function ChatContainer() {
         isOnline={onlineUsers.includes(selectedUser?._id)}
       />
       <ChatWindow messages={messages} />
-      <MessageInput user={selectedUser} sendMessages={sendMessages} />
+      <MessageInput sendMessages={sendMessages} />
     </div>
   );
 }

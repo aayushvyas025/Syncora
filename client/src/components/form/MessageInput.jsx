@@ -3,23 +3,48 @@ import { errorToast } from "../../utils/toast";
 import ImagePreview from "../helper/ImagePreview";
 import { Image, Send } from "lucide-react";
 
-function MessageInput({ sendMessages, user }) {
+function MessageInput({ sendMessages }) {
   const [text, setText] = useState("");
   const [previewImg, setPreviewImg] = useState(null);
   const fileInputRef = useRef(null);
 
-  async function handleImageUpload(event) {}
+  async function handleImageUpload(event) {
+    const file = event.target.files[0];
+
+    if (!file.type.startsWith("image/")) {
+      errorToast("Please select an image file");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewImg(reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
 
   function handleRemoveImage() {
     setPreviewImg(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
-  async function handlePostMessage() {
-    const { success, message } = await sendMessages(user._id);
+  async function handlePostMessage(event) {
+    event.preventDefault();
+
+    if (!text.trim() && !previewImg) return;
+
+    const { success, message } = await sendMessages({
+      text: text.trim(),
+      image: previewImg,
+    });
     if (!success) {
       errorToast(message);
       return;
     }
+
+    setText("");
+    setPreviewImg(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   }
   return (
     <div className="p-4 w-full">

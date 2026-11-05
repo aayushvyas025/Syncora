@@ -52,7 +52,7 @@ const useUserStore = create((set, get) => ({
     const { selectedUser } = get();
     set({ isMessagesLoading: true, error: null });
     try {
-      const { data } = await API.post(`/message/${selectedUser?._id}`, {
+      const { data } = await API.post(`/message/create/${selectedUser?._id}`, {
         text,
         image,
       });
