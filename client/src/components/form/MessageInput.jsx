@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { errorToast } from "../../utils/toast";
 import ImagePreview from "../helper/ImagePreview";
+import { Image, Send } from "lucide-react";
 
 function MessageInput({ sendMessages, user }) {
   const [text, setText] = useState("");
@@ -43,8 +44,23 @@ function MessageInput({ sendMessages, user }) {
               accept="image/*"
               ref={fileInputRef}
               onChange={handleImageUpload}
+              className="hidden"
             />
+            <button
+              type="button"
+              className={`hidden sm:flex btn btn-circle ${previewImg ? "text-emerald-500" : "text-zinc-400"}`}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <Image size={20} />
+            </button>
           </div>
+          <button
+            type="submit"
+            className="btn  btn-circle"
+            disabled={!text.trim() && !previewImg}
+          >
+            <Send size={20} />
+          </button>
         </div>
       </form>
     </div>
