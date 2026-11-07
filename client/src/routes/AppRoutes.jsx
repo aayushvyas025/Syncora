@@ -10,7 +10,8 @@ const ProfilePage = lazy(() => import("../pages/Profile/Profile"));
 const NotFoundPage = lazy(() => import("../pages/NotFound/NotFound"));
 
 function AppRoutes() {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore(); 
+  console.log(onlineUsers)
 
   useEffect(() => {
     checkAuth();

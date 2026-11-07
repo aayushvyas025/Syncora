@@ -1,8 +1,9 @@
 import { create } from "zustand";
 import API from "../../configs/axios/axios";
+import { io } from "socket.io-client";
 
-const useAuthStore = create((set) => ({
-  onlineUsers:[],
+const useAuthStore = create((set, get) => ({
+  onlineUsers: [],
   isSigningUp: false,
   error: null,
   authUser: null,
@@ -11,6 +12,7 @@ const useAuthStore = create((set) => ({
   isLoggedOut: false,
   isUpdatingProfile: false,
   isDeleteUser: false,
+  clientSocket: null,
   signupUser: async ({ fullname, email, password }) => {
     set({ isSigningUp: true, error: null });
     try {
@@ -21,6 +23,7 @@ const useAuthStore = create((set) => ({
       });
 
       set({ authUser: data?.newUser });
+      get().connectSocket();
       return { success: true, message: data?.message, newUser: data?.newUser };
     } catch (error) {
       const message =
@@ -40,7 +43,7 @@ const useAuthStore = create((set) => ({
       const { data } = await API.get("/user/authenticated");
 
       set({ authUser: data?.authUser });
-
+      get().connectSocket();
       return {
         success: true,
         message: data?.message,
@@ -63,6 +66,7 @@ const useAuthStore = create((set) => ({
     try {
       const { data } = await API.post("/auth/login", { email, password });
       set({ authUser: data?.loginUser });
+      get().connectSocket();
       return {
         success: true,
         message: data?.message,
@@ -84,6 +88,7 @@ const useAuthStore = create((set) => ({
     try {
       const { data } = await API.post("/auth/logout");
       set({ authUser: null });
+      get().disconnectSocket();
       return { success: true, message: data.message };
     } catch (error) {
       const message =
@@ -121,6 +126,7 @@ const useAuthStore = create((set) => ({
     try {
       const { data } = await API.delete(`/user/delete/${userId}`);
       set({ authUser: null });
+      get().disconnectSocket();
       return { success: true, message: data.message };
     } catch (error) {
       const message =
@@ -130,6 +136,38 @@ const useAuthStore = create((set) => ({
       set({ error: message });
     } finally {
       set({ isDeleteUser: false });
+    }
+  },
+  connectSocket: () => {
+    const { authUser, clientSocket } = get();
+    if (!authUser || clientSocket?.connected) return;
+
+    const socket = io(import.meta.env.VITE_BACKEND_ORIGIN, {
+      withCredentials: true,
+      query: {
+        userId: authUser._id,
+      },
+    });
+    socket.connect();
+   
+    socket.on("connect", () => {
+  console.log("Connected:", socket.id);
+});
+
+socket.on("connect_error", (error) => {
+  console.error("Connection error:", error.message);
+});
+    
+    socket.on("getOnlineUsers", (userIds) => {
+      set({onlineUsers: userIds})
+    })
+    set({ clientSocket: socket }); 
+
+  },
+  disconnectSocket: () => {
+    const { clientSocket } = get();
+    if (clientSocket?.connected) {
+      clientSocket.disconnect();
     }
   },
 }));
