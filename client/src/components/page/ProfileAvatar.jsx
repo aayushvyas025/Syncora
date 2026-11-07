@@ -11,12 +11,6 @@ function ProfileAvatar({ user, updatingProfile, updateProfile }) {
 
     reader.onload = async () => {
       const base64Image = reader.result;
-      const { isValid, error } = validateImage(base64Image);
-
-      if (!isValid) {
-        errorToast(error);
-        return;
-      }
       const { success, message } = await updateProfile({
         profilePic: base64Image,
       });
