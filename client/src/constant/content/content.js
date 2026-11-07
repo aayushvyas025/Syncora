@@ -1,8 +1,4 @@
 const content = Object.freeze({
-  auth: {
-    signup: {},
-    login: {},
-  },
   themes: {
     title: "Theme",
     subTitle: "Choose a theme for your chat interface",
@@ -48,6 +44,16 @@ const content = Object.freeze({
         title: "Welcome to Syncora",
         subTitle: "Select a friend from the sidebar to start conversation",
       },
+    },
+  },
+  notFound: {
+    title: 404,
+    subTitle: "Page Not Found",
+    description:
+      "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    btn: {
+      home: "Return Home",
+      auth: "Return Login",
     },
   },
 });
