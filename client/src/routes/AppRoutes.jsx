@@ -11,11 +11,10 @@ const NotFoundPage = lazy(() => import("../pages/NotFound/NotFound"));
 
 function AppRoutes() {
   const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore(); 
-  console.log(onlineUsers)
 
   useEffect(() => {
     checkAuth();
-  }, [checkAuth]);
+  }, [checkAuth, onlineUsers]);
 
   if (!authUser && isCheckingAuth) {
     return <AppLoader />;
