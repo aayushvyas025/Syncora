@@ -3,6 +3,8 @@ import { dateFormatter } from "../../utils/formatter";
 
 function UserChat({ message, selectedUser }) {
   const { authUser } = useAuthStore();
+ 
+
   return (
     <div
       className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
@@ -24,7 +26,9 @@ function UserChat({ message, selectedUser }) {
         </div>
       </div>
       <div className="chat-header mb-1">
-        <time className="text-xs opacity-50 ml">{dateFormatter(message.createdAt)}</time>
+        <time className="text-xs opacity-50 ml">
+          {dateFormatter(message.createdAt)}
+        </time>
       </div>
       <div className="chat-bubble flex flex-col">
         {message.image && (
