@@ -1,4 +1,3 @@
-import React from "react";
 import UserInfo from "../helper/UserInfo";
 import { Mail, User } from "lucide-react";
 

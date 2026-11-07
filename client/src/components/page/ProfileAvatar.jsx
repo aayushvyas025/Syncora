@@ -1,5 +1,4 @@
 import { errorToast, successToast } from "../../utils/toast";
-import { validateImage } from "../../utils/validations";
 import ImageUploader from "../form/ImageUploader";
 
 function ProfileAvatar({ user, updatingProfile, updateProfile }) {

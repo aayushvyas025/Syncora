@@ -27,10 +27,10 @@ function Sidebar() {
 
   return (
     <div className="h-full w-20 lg:w-72 border-b border-base-300 flex flex-col transition-all duration-200">
-      <div className="border-b border-base-300 w-full p-5 ">
+      <div className="border-b-2 border-base-300 w-full p-5 border-r-2">
         <SidebarHeader />
       </div>
-      <div className="overflow-y-auto w-full py-3">
+      <div className="overflow-y-auto w-full py-3 border-r-2 border-base-300 h-full">
         {users.map((user) => (
           <SidebarUsers
             key={user._id}
