@@ -2,12 +2,13 @@ import { Suspense } from "react";
 import { Link } from "react-router-dom";
 import useAuthStore from "../../store/auth/authStore";
 import content from "../../constant/content/content";
+import NotFoundSkeleton from "../../components/skeletons/NotFoundSkeleton";
 
 const { title, subTitle, description, btn } = content.notFound;
 function NotFound() {
   const { authUser } = useAuthStore();
   return (
-    <Suspense>
+    <Suspense fallback={<NotFoundSkeleton />}>
       <div class="h-screen flex flex-col items-center justify-center text-sm max-md:px-4">
         <h1 class="text-8xl md:text-9xl font-bold text-primary-500">{title}</h1>
         <div class="h-1 w-16 rounded bg-indigo-500 my-5 md:my-7"></div>
