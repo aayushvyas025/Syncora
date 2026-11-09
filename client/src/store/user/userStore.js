@@ -11,16 +11,19 @@ const useUserStore = create((set, get) => ({
   isMessagesLoading: false,
   setSelectedUser: (user) => set({ selectedUser: user }),
   subscribeToMessage: () => {
-    const { selectedUser, messages } = get();
+    const { selectedUser } = get();
     if (!selectedUser) return;
     const clientSocket = useAuthStore.getState().clientSocket;
     clientSocket.on("newMessage", (newMessage) => {
-      set({ messages: [...messages, newMessage] });
+      set((state) => ({
+        messages: [...state.messages, newMessage]
+      }));
     });
   },
-  unsubscribeFromMessage:() => {
-    const clientSocket = useAuthStore.getState().clientSocket; 
-    clientSocket.off('newMessage'); 
+  unsubscribeFromMessage: () => {
+    const clientSocket = useAuthStore.getState().clientSocket;
+    if(!clientSocket) return; 
+    clientSocket.off("newMessage");
   },
   fetchAllUsers: async () => {
     set({ isUserLoading: true, error: null });

@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import Layout from "../../layout/Layout";
 import Sidebar from "../../components/page/Sidebar";
-import useUserStore from "../../store/user/userStore";
 import ChatPlaceholder from "../../components/helper/ChatPlaceholder";
 import ChatContainer from "../../components/page/ChatContainer";
+import useUserStore from "../../store/user/userStore";
 
 function Home() {
   const { selectedUser } = useUserStore();
