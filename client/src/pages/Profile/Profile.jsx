@@ -6,6 +6,7 @@ import ProfileAvatar from "../../components/page/ProfileAvatar";
 import ProfileInfo from "../../components/page/ProfileInfo";
 import AccountInfo from "../../components/page/AccountInfo";
 import AppLoader from "../../components/helper/AppLoader";
+import ProfileSkeleton from "../../components/skeletons/ProfileSkeleton";
 
 function Profile() {
   const {
@@ -21,20 +22,20 @@ function Profile() {
   }
 
   return (
-    <Suspense>
+    <Suspense fallback={<ProfileSkeleton />}>
       <Layout style={"min-h-screen pt-20"}>
         <div className="max-w-2xl mx-auto p-4 py-8">
           <div className="bg-base-300 rounded-xl p-6 space-y-8">
-              <ProfileHeader />
-              <ProfileAvatar
-                user={authUser}
-                updatingProfile={isUpdatingProfile}
-                updateProfile={updateProfile}
-              />
-              <ProfileInfo user={authUser} />
-              <AccountInfo user={authUser} deleteProfile={deleteProfile} />
-            </div>
+            <ProfileHeader />
+            <ProfileAvatar
+              user={authUser}
+              updatingProfile={isUpdatingProfile}
+              updateProfile={updateProfile}
+            />
+            <ProfileInfo user={authUser} />
+            <AccountInfo user={authUser} deleteProfile={deleteProfile} />
           </div>
+        </div>
       </Layout>
     </Suspense>
   );
