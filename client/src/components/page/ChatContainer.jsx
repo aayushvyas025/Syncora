@@ -14,6 +14,8 @@ function ChatContainer() {
     isMessagesLoading,
     selectedUser,
     sendMessages,
+    subscribeToMessage,
+    unsubscribeFromMessage,
   } = useUserStore();
 
   const { onlineUsers } = useAuthStore();
@@ -28,10 +30,13 @@ function ChatContainer() {
 
   useEffect(() => {
     handleFetchMessages();
+    subscribeToMessage();
+
+    return () => unsubscribeFromMessage();
   }, [selectedUser?._id, fetchMessages]);
 
   if (isMessagesLoading) return <ChatContainerSkeleton />;
- 
+
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader

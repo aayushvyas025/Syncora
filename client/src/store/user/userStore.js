@@ -10,7 +10,7 @@ const useUserStore = create((set, get) => ({
   isUserLoading: false,
   isMessagesLoading: false,
   setSelectedUser: (user) => set({ selectedUser: user }),
-  subscribeToMessages: () => {
+  subscribeToMessage: () => {
     const { selectedUser, messages } = get();
     if (!selectedUser) return;
     const clientSocket = useAuthStore.getState().clientSocket;
