@@ -15,6 +15,7 @@ const useUserStore = create((set, get) => ({
     if (!selectedUser) return;
     const clientSocket = useAuthStore.getState().clientSocket;
     clientSocket.on("newMessage", (newMessage) => {
+      if(newMessage.senderId !== selectedUser._id) return; 
       set((state) => ({
         messages: [...state.messages, newMessage]
       }));
