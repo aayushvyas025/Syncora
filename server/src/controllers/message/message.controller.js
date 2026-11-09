@@ -1,3 +1,7 @@
+import {
+  getReceiverSocketId,
+  serverSocketIo,
+} from "#configs/socket/socket.config";
 import Message from "#models/message.model";
 import { uploadToCloudinary } from "#utils/cloudinary.util";
 import mongoose from "mongoose";
@@ -62,6 +66,12 @@ export const sendMessages = async (request, response, next) => {
     });
 
     await newMessage.save();
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+
+    if (receiverSocketId) {
+      serverSocketIo.to(receiverSocketId).emit("newMessage", newMessage);
+    }
 
     return response
       .status(201)

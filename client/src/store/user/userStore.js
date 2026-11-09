@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import API from "../../configs/axios/axios";
+import useAuthStore from "../auth/authStore";
 
 const useUserStore = create((set, get) => ({
   users: [],
@@ -9,6 +10,18 @@ const useUserStore = create((set, get) => ({
   isUserLoading: false,
   isMessagesLoading: false,
   setSelectedUser: (user) => set({ selectedUser: user }),
+  subscribeToMessages: () => {
+    const { selectedUser, messages } = get();
+    if (!selectedUser) return;
+    const clientSocket = useAuthStore.getState().clientSocket;
+    clientSocket.on("newMessage", (newMessage) => {
+      set({ messages: [...messages, newMessage] });
+    });
+  },
+  unsubscribeFromMessage:() => {
+    const clientSocket = useAuthStore.getState().clientSocket; 
+    clientSocket.off('newMessage'); 
+  },
   fetchAllUsers: async () => {
     set({ isUserLoading: true, error: null });
     try {

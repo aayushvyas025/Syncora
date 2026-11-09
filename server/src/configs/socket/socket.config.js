@@ -15,6 +15,11 @@ const serverSocketIo = new Server(server, {
 // In {userId: socketId}
 const onlineUsers = {};
 
+export function getReceiverSocketId(userId) {
+  return onlineUsers[userId]; 
+}
+
+
 serverSocketIo.on("connection", (socket) => {
   console.log("A user connected", socket.id);
 
@@ -32,6 +37,7 @@ serverSocketIo.on("connection", (socket) => {
     console.log("A user disconnected", socket.id);
     delete onlineUsers[userId]
   });
-});
+}); 
+
 
 export { server, app, serverSocketIo };
