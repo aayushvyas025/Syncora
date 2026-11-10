@@ -28,34 +28,6 @@ export const getAllUsers = async (request, response, next) => {
   }
 };
 
-export const getUserById = async (request, response, next) => {
-  try {
-    const { id } = request.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return response
-        .status(400)
-        .json({ success: false, message: "Invalid userId" });
-    }
-
-    const user = await User.findById(id);
-
-    if (!user) {
-      return response
-        .status(404)
-        .json({ success: false, message: "User not found" });
-    }
-
-    return (
-      response.status(200),
-      json({ success: true, message: "User fetch from database" })
-    );
-  } catch (error) {
-    console.error(`Error, while fetching user: ${error.message}`);
-    next(error);
-  }
-};
-
 export const updateUserProfile = async (request, response, next) => {
   try {
     const { _id: userId } = request.user;
