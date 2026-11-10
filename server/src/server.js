@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
 import configDatabase from "#configs/database/database.config";
 import appRoutes from "#routes/index.route";
 import { server, app } from "#configs/socket/socket.config";
+
+const __dirname = path.resolve();
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
@@ -20,6 +23,13 @@ if (process.env.NODE_ENV === "development") {
 
 app.use("/api", appRoutes);
 
+if (process.env.NODE_ENV === "development") {
+  app.use(express.static(path.join(__dirname, "../client/dist")));
+  app.get("/{*splat}", (request, response) => {
+    response.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  });
+}
+
 app.use((error, request, response, next) => {
   console.log(error.message);
   response
@@ -28,15 +38,15 @@ app.use((error, request, response, next) => {
 });
 
 async function mainServer() {
-    const port = process.env.PORT;
+  const port = process.env.PORT;
   try {
-    await configDatabase(); 
-    server.listen(port,() => {
-        console.log(`Server is up and running successfully`)
-    })
+    await configDatabase();
+    server.listen(port, () => {
+      console.log(`Server is up and running successfully`);
+    });
   } catch (error) {
     console.error(`Error, while setup server: ${error.message}`);
   }
 }
 
-mainServer(); 
+mainServer();

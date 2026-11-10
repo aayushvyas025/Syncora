@@ -1,6 +1,5 @@
 import User from "#models/user.model";
 import { uploadToCloudinary } from "#utils/cloudinary.util";
-import { request } from "express";
 import mongoose from "mongoose";
 
 export const getAllUsers = async (request, response, next) => {

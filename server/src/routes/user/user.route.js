@@ -1,7 +1,6 @@
 import {
   deleteUserProfile,
   getAllUsers,
-  getUserById,
   updateUserProfile,
   userAuthenticated,
 } from "#controllers/user/user.controller";
@@ -16,6 +15,5 @@ router.get("/all", getAllUsers);
 router.get("/authenticated", userAuthenticated);
 router.put("/update-profile", updateUserProfile);
 router.delete("/delete/:id", deleteUserProfile);
-router.get('/:id', getUserById)
 
 export default router;

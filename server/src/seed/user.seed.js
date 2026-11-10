@@ -103,6 +103,9 @@ const seedUsers = [
 const seedDatabase = async () => {
   try {
     await configDatabase();
+    await User.deleteMany({});
+
+    console.log("Existing users deleted successfully");
 
     await User.insertMany(seedUsers);
     console.log("Database seeded successfully");
